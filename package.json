@@ -24,6 +24,7 @@
     "express-session": "^1.18.2",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
+    "prisma": "^7.0.0",
     "winston": "^3.18.3"
   },
   "devDependencies": {
@@ -34,7 +35,6 @@
     "@types/passport": "^1.0.17",
     "@types/passport-local": "^1.0.38",
     "nodemon": "^3.1.11",
-    "prisma": "^7.0.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
