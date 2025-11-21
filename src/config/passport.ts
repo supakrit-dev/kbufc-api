@@ -36,12 +36,13 @@ export default passport.use(
                 where: { username }
             });
             if (!findUser) {
-                throw new Error("User not found");
+                return done(null, false, {message: "Invalid Username"})
             }
 
             if (!comparePassword(password, findUser.password)) {
-                throw new Error("Invalid Credentials");
+                return done(null, false, { message: "Invalid Password" })
             }
+            logger.info('Login Success.', [findUser.username])
             done(null, findUser);
         } catch (error) {
             logger.warn(error)

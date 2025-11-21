@@ -10,10 +10,10 @@ import v1 from "./routes/v1";
 
 export const createServer = () => {
   const app = express();
+  app.use(cors({ origin: "http://localhost:3001", credentials: true}));
   app.use(express.json());
-  app.use(cors()); // Enable CORS for all origins (for development purposes, not recommended for production)
 
-  const sessionSecret = config.appSecretKey || 'your_fallback_secret_if_not_set';
+  const sessionSecret = config.appSecretKey || 'SECRET';
 
   app.use(
     session({
@@ -21,17 +21,15 @@ export const createServer = () => {
       saveUninitialized: false,
       resave: false,
       cookie: {
-        maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
         httpOnly: true,
         secure: false,
         sameSite: 'lax',
-
+        maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
       },
       store: new PrismaSessionStore(db as any, {
         checkPeriod: 2 * 60 * 1000, // Check and delete expired sessions every 2 minutes
         dbRecordIdIsSessionId: true,
         sessionModelName: 'Session',
-
       }),
     }))
 
