@@ -22,7 +22,7 @@ export const createServer = () => {
       resave: false,
       cookie: {
         httpOnly: true,
-        secure: false,
+        secure: config.env === 'production',
         sameSite: 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
       },
