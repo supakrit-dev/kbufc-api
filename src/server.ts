@@ -10,7 +10,7 @@ import v1 from "./routes/v1";
 
 export const createServer = () => {
   const app = express();
-  app.use(cors({ origin: "*", credentials: true}));
+  app.use(cors({ origin: "*", credentials: true }));
   app.use(express.json());
 
   const sessionSecret = config.appSecretKey || 'SECRET';
@@ -39,7 +39,7 @@ export const createServer = () => {
   app.use('/v1', v1);
 
   app.get('/health', (req: Request, res: Response) => {
-    res.json({ok: true, environmemt: config.logLevel});
+    res.status(200).json({ ok: true });
   })
 
   return app;
