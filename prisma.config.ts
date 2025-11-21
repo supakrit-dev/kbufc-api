@@ -1,22 +1,16 @@
-import "dotenv/config";
-import path from "node:path";
-import { PrismaConfig } from "prisma";
-import { env } from "prisma/config";
+import 'dotenv/config';
+import { PrismaConfig } from 'prisma';
+import { env } from 'prisma/config';
 
-
-export default {
-  schema: path.join("prisma"),
+const config: PrismaConfig = {
+  schema: 'prisma/schema.prisma', // Path to your Prisma schema file
   migrations: {
-    path: path.join("prisma", "migrations"),
-    seed: 'ts-node prisma/seed.ts'
-  },
-  views: {
-    path: path.join("prisma", "views"),
-  },
-  typedSql: {
-    path: path.join("prisma", "queries"),
+    path: 'prisma/migrations'
   },
   datasource: {
-    url: env("DATABASE_URL")
-  }
-} satisfies PrismaConfig;
+    url: env('DATABASE_URL'), // Database URL from environment variables
+  },
+  // Other configurations like generators, cli options, etc.
+};
+
+export default config;
