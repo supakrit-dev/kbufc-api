@@ -37,10 +37,10 @@ export const createServer = () => {
   app.use(passport.session());
 
   app.use('/v1', v1);
-
+  
   app.get('/health', (req: Request, res: Response) => {
-    res.status(200).json({ ok: true });
+    res.sendStatus(200);
   })
-
+  
   return app;
 }
