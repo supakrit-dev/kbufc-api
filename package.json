@@ -11,9 +11,11 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "db:seed": "prisma db seed",
-    "postinstall": "npx prisma generate"
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.0.0",
     "@prisma/client": "^7.0.0",
     "@prisma/extension-accelerate": "^2.0.2",
     "@quixo3/prisma-session-store": "^3.1.13",
