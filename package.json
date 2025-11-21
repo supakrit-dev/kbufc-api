@@ -10,7 +10,8 @@
     "dev": "nodemon",
     "build": "tsc",
     "start": "node dist/index.js",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
