@@ -1,6 +1,6 @@
 import "dotenv/config";
 import path from "node:path";
-import type { PrismaConfig } from "prisma";
+import { PrismaConfig } from "prisma";
 import { env } from "prisma/config";
 
 
