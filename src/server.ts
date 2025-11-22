@@ -1,7 +1,7 @@
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import cors from 'cors';
 import 'dotenv/config';
-import express, { Request, Response } from "express";
+import express from "express";
 import session from "express-session";
 import passport from "passport";
 import db from "./config/db";
@@ -10,12 +10,8 @@ import v1 from "./routes/v1";
 
 export const createServer = () => {
   const app = express();
-
-  app.get('/health', (req: Request, res: Response) => {
-    res.sendStatus(200);
-  })
   
-  app.use(cors({ origin: process.env.FRONTEND_ADMIN_URL, credentials: true }));
+  app.use(cors({ origin: process.env.FRONTEND_ADMIN_URL , credentials: true }));
   app.use(express.json());
 
   const sessionSecret = process.env.appSecretKey || 'SECRET';
@@ -42,8 +38,6 @@ export const createServer = () => {
   app.use(passport.session());
 
   app.use('/v1', v1);
-
-
 
   return app;
 }
