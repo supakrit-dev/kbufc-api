@@ -24,6 +24,7 @@ passport.deserializeUser(async (id: string, done) => {
         if (!findUser) throw new Error("User not found");
         done(null, findUser);
     } catch (error) {
+        logger.info(error)
         done(error, null);
     }
 });
@@ -36,12 +37,16 @@ export default passport.use(
                 where: { username }
             });
             if (!findUser) {
-                return done(null, false, {message: "Invalid Username"})
+                return done(null, false, { message: "Invalid Username" })
             }
 
             if (!comparePassword(password, findUser.password)) {
                 return done(null, false, { message: "Invalid Password" })
             }
+            if (findUser.status === 'INACTIVE') {
+                return done(null, false, { message: "Your account has been permanently suspended and access is denied. Please contact support for more information." })
+            }
+
             logger.info('Login Success.', [findUser.username])
             done(null, findUser);
         } catch (error) {

@@ -22,7 +22,7 @@ router.post("/login", (req, res, next) => {
             if (err) {
                 return res.status(500).json({ success: false, message: "Login failed" });
             }
-            
+
             req.session.save((err) => {
                 if (err) {
                     return res.status(500).json({ success: false });

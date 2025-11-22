@@ -1,11 +1,10 @@
 import "dotenv/config";
 import winston from "winston";
-import config from "../config";
 const { combine, timestamp, json, errors, printf } = winston.format;
 
 
 const logger = winston.createLogger({
-    level: config.logLevel || "info",
+    level: process.env.logLevel || "info",
     format: combine(timestamp({
         format: "DD-MM-YYYY hh:mm:ss"
     }),
