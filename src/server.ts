@@ -10,6 +10,11 @@ import v1 from "./routes/v1";
 
 export const createServer = () => {
   const app = express();
+
+  app.get('/health', (req: Request, res: Response) => {
+    res.sendStatus(200);
+  })
+  
   app.use(cors({ origin: process.env.FRONTEND_ADMIN_URL, credentials: true }));
   app.use(express.json());
 
@@ -38,9 +43,7 @@ export const createServer = () => {
 
   app.use('/v1', v1);
 
-  app.get('/health', (req: Request, res: Response) => {
-    res.sendStatus(200);
-  })
+
 
   return app;
 }
