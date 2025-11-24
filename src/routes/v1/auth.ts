@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import passport from "../../config/passport";
 
 
@@ -39,15 +39,18 @@ router.post("/login", (req, res, next) => {
 });
 
 
-router.post("/logout", (req: Request, res: Response, next: NextFunction) => {
+router.post("/logout", (req: Request, res: Response) => {
     req.logout((err) => {
-        if (err) { return next(err); }
+        if (err) { return res.status(500).json({ success: false, message: err }); }
         req.session.destroy((err) => {
             req.user = undefined;
             res.clearCookie('connect.sid');
-            if (err) return next(err);
+            if (err) { return res.status(500).json({ success: false, message: err }); }
             
-            return res.sendStatus(200)
+            return res.status(200).json({
+                success: true,
+                message: "Your are Logged out."
+            })
         });
     });
 });

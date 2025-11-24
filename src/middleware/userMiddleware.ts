@@ -1,4 +1,4 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import db from "../config/db";
 import logger from "../utils/logger";
 
@@ -21,6 +21,7 @@ export const resolveUserByUserId = async (req: any, res: Response, next: NextFun
             select: {
                 id: true,
                 username: true,
+                password: true,
                 status: true,
                 role: true,
             }
@@ -46,3 +47,22 @@ export const resolveUserByUserId = async (req: any, res: Response, next: NextFun
         });
     }
 }
+
+export const checkDuplicateUsername = async (req: Request, res: Response, next: NextFunction) => {
+    const { username } = req.body;
+
+    const existed = await db.user.findFirst(
+        {
+            where: {
+                username: {
+                    equals: username, mode: 'insensitive',
+                },
+                NOT: { username }
+            }
+        });
+
+    if (existed) {
+        return res.status(400).json({ success: false, message: "Username already taken" });
+    }
+    next();
+};
