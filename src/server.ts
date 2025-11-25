@@ -10,6 +10,8 @@ import v1 from "./routes/v1";
 
 export const createServer = () => {
   const app = express();
+
+  app.set("trust proxy", 1);
   
   app.use(cors({
     origin: process.env.FRONTEND_ADMIN_URL,
