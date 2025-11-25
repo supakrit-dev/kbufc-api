@@ -60,10 +60,10 @@ export const createUserHandler = async (req: Request, res: Response) => {
 };
 
 export const deleteUserHandler = async (req: Request, res: Response) => {
-    const { user } = req;
+    const { params: { id } } = req;
     try {
         await db.user.delete({
-            where: { id: user?.id }
+            where: { id }
         })
         return res.status(200).json({
             success: true,
@@ -79,7 +79,7 @@ export const deleteUserHandler = async (req: Request, res: Response) => {
 
 export const updateUserHandler = async (req: Request, res: Response) => {
     const result = validationResult(req);
-    const id = req.user?.id
+    const { params: { id } } = req;
 
     if (!result.isEmpty()) return res.status(400).send({ error: result.array() });
 

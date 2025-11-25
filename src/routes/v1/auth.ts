@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import passport from "../../config/passport";
+import logger from "../../utils/logger";
 
 
 const router = Router();
@@ -47,6 +48,7 @@ router.post("/logout", (req: Request, res: Response) => {
             res.clearCookie('connect.sid');
             if (err) { return res.status(500).json({ success: false, message: err }); }
             
+            logger.info('Your are Logged out.')
             return res.status(200).json({
                 success: true,
                 message: "Your are Logged out."
