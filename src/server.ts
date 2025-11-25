@@ -11,7 +11,12 @@ import v1 from "./routes/v1";
 export const createServer = () => {
   const app = express();
   
-  app.use(cors({ origin: process.env.FRONTEND_ADMIN_URL , credentials: true }));
+  app.use(cors({
+    origin: process.env.FRONTEND_ADMIN_URL,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }));
   app.use(express.json());
 
   const sessionSecret = process.env.appSecretKey || 'SECRET';
